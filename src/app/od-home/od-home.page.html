@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+<!--   <ion-toolbar>
+    <ion-title> <ion-icon name="chevron-back-outline" [routerLink]="['/tabs/tab1']" class="backbtn"> </ion-icon> <span class="ion-text-center"> Outside Duty </span> </ion-title>
+  </ion-toolbar> -->
+
+<ion-toolbar color="light">
+  <ion-buttons slot="start" (click)="navigate()">
+    <ion-back-button default-href="#"></ion-back-button>
+  </ion-buttons>
+  <ion-title> Outside Duty </ion-title>
+  <ion-progress-bar></ion-progress-bar>
+</ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+    <ion-button shape="round" expand="full" [routerLink]="['/tabs/new-odrequest']"> New OD Request  <ion-icon name="chevron-forward-outline" slot="end"></ion-icon> </ion-button>      
+
+    <ion-button shape="round" expand="full" [routerLink]="['/tabs/my-odrequest']"> My OD Requests <ion-icon name="chevron-forward-outline" slot="end"></ion-icon> </ion-button>     
+
+    <ion-button *ngIf="userlogin_data.permission == '2' || userlogin_data.permission == '1' " shape="round" expand="full" [routerLink]="['/tabs/odapproval']"> OD Approval List <ion-icon name="chevron-forward-outline" slot="end"></ion-icon> </ion-button>  
+
+
+</ion-content>

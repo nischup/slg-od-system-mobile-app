@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+<ion-toolbar color="light">
+  <ion-buttons slot="start" (click)="navigate()">
+    <ion-back-button default-href="#"></ion-back-button>
+  </ion-buttons>
+  <ion-title> Leave Approval List</ion-title>
+     <ion-button color="light" slot="end" (click)="refreshPage()">
+		  <ion-icon name="refresh"></ion-icon>
+		</ion-button>
+   <ion-progress-bar></ion-progress-bar>
+  <ion-progress-bar type="indeterminate" *ngIf="showProgressBar"></ion-progress-bar>
+</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+
+	<ion-card color="light" *ngFor="let data of pendingLeaveList">
+
+	  <ion-card-header>
+	    <ion-card-subtitle> <strong>  Employee ID: </strong> {{ data.emp_id_no }}  </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Name:  </strong> {{ data.emp_name }} </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Designation: </strong> {{ data.employee_designation }} </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Department: </strong> {{ data.employee_department }}  </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Leave Type: </strong> {{ data.leave_type_name }} </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Leave Date: </strong> {{ data.dates }} </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Submission Date: </strong> {{ data.submission_date }} </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Dept. Head Approve Status: </strong> <ion-text color="success"> {{ data.head_approved_status }} </ion-text> </ion-card-subtitle>
+	  </ion-card-header>
+
+	  <ion-card-content>
+	    <strong> Leave Purpose: </strong> {{ data.leave_message }}
+		  <ion-button size="small" shape="round" justify="start" color="danger" style="margin-left: 20%; margin-right: 10%;" (click)="rejectRequest(data)"> Reject </ion-button>
+		   <ion-button size="small" shape="round" justify="end" color="success" (click)="approvalRequest(data)"> Approve </ion-button>
+	</ion-card-content>
+
+	</ion-card>		
+
+
+</ion-content>

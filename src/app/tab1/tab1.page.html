@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="light">
+    <ion-title>
+      SLG Application
+    </ion-title>
+    <ion-progress-bar></ion-progress-bar>
+     <ion-progress-bar type="indeterminate" *ngIf="showProgressBar"></ion-progress-bar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+
+
+  <ion-button shape="round" expand="full" [routerLink]="['/tabs/od-home']"> OD <ion-icon name="chevron-forward-outline" slot="end"></ion-icon> </ion-button>
+
+  <ion-button shape="round" expand="full" [routerLink]="['/tabs/hrm-home']"> HRM  <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>  </ion-button>
+
+
+
+</ion-content>

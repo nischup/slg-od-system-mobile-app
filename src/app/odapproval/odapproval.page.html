@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+<ion-toolbar>
+  <ion-buttons slot="start" (click)="navigate()">
+    <ion-back-button default-href="#"></ion-back-button>
+  </ion-buttons>
+  <ion-title> OD Approval List </ion-title>
+  <ion-progress-bar></ion-progress-bar>
+     <ion-button color="light" slot="end" (click)="refreshPage()">
+		  <ion-icon name="refresh"></ion-icon>
+		</ion-button>
+  <ion-progress-bar type="indeterminate" *ngIf="showProgressBar"></ion-progress-bar>
+</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+	<ion-card *ngFor="let data of pendingODList">
+	  <ion-card-header>
+	    <ion-card-subtitle> <strong>  OD Date: </strong> {{ data.od_date }}  </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Visit From:  </strong> {{ data.visit_from }} </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Visit To: </strong> {{ data.visit_to }}</ion-card-subtitle>
+	    <ion-card-subtitle *ngIf="data.other"> <strong>  Other: </strong> {{ data.other }}  </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  No of Visitor: </strong> {{ data.visitor_no }}  </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Back to Office: </strong> {{ data.back_to_office }} </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Food Request: </strong> {{ data.food_request }} </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  OD Submiited By: </strong> {{ data.emp_name }} </ion-card-subtitle>
+	    <!-- <ion-card-subtitle> <strong>  OD Submiited Date: </strong> 23-06-2023 </ion-card-subtitle> -->
+	  </ion-card-header>
+
+	  <ion-card-content *ngIf="data.approval_message">
+	    <strong> Purpose: </strong> {{ data.approval_message }}
+	  </ion-card-content>	  
+
+	  <ion-card-content *ngIf="data.visitor_details">
+	    <strong> Visitor Details: </strong> {{ data.visitor_details }}
+	  </ion-card-content>	  
+
+	  <ion-card-content *ngIf="data.comments">
+	    <strong> Comments: </strong> {{ data.comments }}
+	  </ion-card-content>
+
+  	   <ion-button size="small" shape="round" justify="start" color="danger" style="margin-left: 20%; margin-right: 10%;" (click)="rejectRequest(data)"> Reject </ion-button>
+	   <ion-button size="small" shape="round" justify="end" color="success" (click)="approvalRequest(data)"> Approve </ion-button>
+
+	</ion-card>	
+
+	
+
+</ion-content>

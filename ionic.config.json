@@ -1,0 +1,7 @@
+{
+  "name": "slgAppTest",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

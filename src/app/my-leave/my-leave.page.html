@@ -1,0 +1,87 @@
+<ion-header [translucent]="true">
+<ion-toolbar color="light">
+  <ion-buttons slot="start" (click)="navigate()">
+    <ion-back-button default-href="#"></ion-back-button>
+  </ion-buttons>
+  <ion-title> Leave Status</ion-title>
+    <ion-progress-bar></ion-progress-bar>
+      	<ion-button color="light" slot="end" (click)="refreshPage()">
+		  <ion-icon name="refresh"></ion-icon>
+		</ion-button>
+</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+	<form [formGroup]="leaveForm" (submit)="searchLeave(leaveForm.value)">  
+
+
+	  <ion-item>
+	  	<ion-label>Start Date: </ion-label>
+		<ion-datetime-button datetime="datetime"></ion-datetime-button>
+  	  </ion-item>	  
+
+  	  <ion-item>
+	  	<ion-label>End Date: </ion-label>
+		<ion-datetime-button datetime="datetime1"></ion-datetime-button>
+  	  </ion-item>
+
+		<ion-modal [keepContentsMounted]="true">
+		  <ng-template>
+		    <ion-datetime formControlName="start_date" id="datetime" presentation="date"  prefer-wheel="true"
+	     [showDefaultButtons]="true"></ion-datetime>
+		  </ng-template>
+		</ion-modal>			
+
+		<ion-modal [keepContentsMounted]="true">
+		  <ng-template>
+		    <ion-datetime formControlName="end_date" id="datetime1" presentation="date"  prefer-wheel="true"
+	     [showDefaultButtons]="true"></ion-datetime>
+		  </ng-template>
+		</ion-modal>	  
+
+    <ion-button expand="full" shape="round" color="success" style="margin-top: 10px; padding-left: 10px; padding-right: 10px;" type="submit"> Search Result </ion-button>
+
+	</form>
+
+
+<!-- <ion-segment value="custom">
+
+	  <ion-segment-button value="custom">
+	    <ion-label>Pending</ion-label>
+	  </ion-segment-button>
+
+	  <ion-segment-button value="segment">
+	    <ion-label>Approve</ion-label>
+	  </ion-segment-button>
+
+	  <ion-segment-button value="buttons">
+	    <ion-label>Reject</ion-label>
+	  </ion-segment-button>
+
+</ion-segment> -->
+
+
+	<ion-card color="light" *ngFor="let data of myLeave">
+	  <ion-card-header>
+	    <ion-card-subtitle> <strong>  Employee ID: </strong> {{ data.emp_id_no }}  </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Name:  </strong> {{ data.emp_name }} </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Designation: </strong> {{ data.employee_designation }} </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Department: </strong> {{ data.employee_department }}  </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Leave Type: </strong> {{ data.leave_type_name }} </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Leave Date: </strong> {{ data.dates }} </ion-card-subtitle>
+<!-- 	    <ion-card-subtitle> <strong>  Submission Date: </strong> {{ data.emp_id_no }} </ion-card-subtitle> -->
+	    <ion-card-subtitle *ngIf="data.head_approved_status == 'Pending'"> <strong>  Dept. Head Approve Status: </strong> <ion-text color="primary"> {{ data.head_approved_status }} </ion-text> </ion-card-subtitle>
+
+	    <ion-card-subtitle *ngIf="data.head_approved_status == 'Approved'"> <strong>  Dept. Head Approve Status: </strong> <ion-text color="success"> {{ data.head_approved_status }} </ion-text> </ion-card-subtitle>
+
+	    <ion-card-subtitle *ngIf="data.head_approved_status == 'Rejected'"> <strong>  Dept. Head Approve Status: </strong> <ion-text color="danger"> {{ data.head_approved_status }} </ion-text> </ion-card-subtitle>
+	  </ion-card-header>
+
+	  <ion-card-content>
+	    <strong> Leave Purpose: </strong> {{ data.leave_message }}
+	  </ion-card-content>
+	</ion-card>			
+
+
+</ion-content>

@@ -1,0 +1,120 @@
+<ion-header [translucent]="true">
+<!-- 	<ion-toolbar>
+    <ion-title> <ion-icon name="chevron-back-outline" [routerLink]="['/tabs/od-home']" class="backbtn"> </ion-icon> <span class="ion-text-center"> New OD Request </span> </ion-title>
+  </ion-toolbar> -->
+
+<ion-toolbar color="light">
+  <ion-buttons slot="start" (click)="navigate()">
+    <ion-back-button default-href="#"></ion-back-button>
+  </ion-buttons>
+  <ion-title> New OD Request </ion-title>
+   <ion-progress-bar value="0.0" buffer="0.5"></ion-progress-bar>
+     	<ion-button color="light" slot="end" (click)="refreshPage()">
+		  <ion-icon name="refresh"></ion-icon>
+		</ion-button>
+</ion-toolbar>
+
+</ion-header>
+
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+	<form [formGroup]="odForm" (submit)="sendNewApplication()">
+
+	  <ion-item>
+	  	<ion-label>Your Name: </ion-label>
+	    <ion-input  color="success" formControlName="name" readonly></ion-input>
+	    <!-- <ion-icon name="refresh-circle-outline" (click)="refreshPage()"></ion-icon> -->
+	  </ion-item>
+
+	  <ion-item>
+	  	<ion-label>Employee ID: </ion-label>
+	    <ion-input labelPlacement="fixed" formControlName="emp_id_no" color="success" readonly></ion-input>
+	  </ion-item>	  	  
+
+	  <ion-item>
+	  	<ion-label>Mobile No: </ion-label>
+	    <ion-input labelPlacement="fixed" formControlName="mobile_no" color="success"></ion-input>
+	  </ion-item>	  
+
+<!-- 	  <ion-item>
+	  	<ion-label>OD Date: </ion-label>
+	    <ion-input labelPlacement="fixed" placeholder="Ex:2023-06-24" formControlName="od_date" color="success"></ion-input>
+	  </ion-item>	  --> 
+
+	  <ion-item>
+	  	<ion-label>OD Date: </ion-label>
+		<ion-datetime-button datetime="datetime"></ion-datetime-button>
+  	  </ion-item>
+
+		<ion-modal [keepContentsMounted]="true">
+		  <ng-template>
+		    <ion-datetime formControlName="od_date" id="datetime" presentation="date"  prefer-wheel="true"
+	     [showDefaultButtons]="true"></ion-datetime>
+		  </ng-template>
+		</ion-modal>	  
+
+	  <ion-item>
+	  	<ion-label>Visit From: </ion-label>
+	    <ion-input labelPlacement="fixed" formControlName="visit_from" color="success"></ion-input>
+	  </ion-item>	  
+
+	  <ion-item>
+	  	<ion-label>Where To Visit: </ion-label>
+	    <ion-select justify="start" formControlName="visit_to" placeholder="Select Place" [multiple]="true" (ionChange)="getSelectedValue($event)">
+	      <ion-select-option [value]="companydata.id" *ngFor="let companydata of companyList"> {{ companydata.projectName }} </ion-select-option>
+	    </ion-select>
+	  </ion-item>
+
+	  <ion-item *ngIf="other">
+	  <ion-label>Other:</ion-label>
+	  <ion-input formControlName="other"></ion-input>
+	</ion-item>	  
+
+	<ion-item>
+		<ion-label>Back To Office: </ion-label>
+	    <ion-select  interface="action-sheet" formControlName="back_to_office"  placeholder="Select One">
+	      <ion-select-option value="yes">Yes</ion-select-option>
+	      <ion-select-option value="no">No</ion-select-option>
+	    </ion-select>
+	</ion-item>
+
+	<ion-item>
+		<ion-label>No of Visitor: </ion-label>
+	    <ion-input labelPlacement="fixed" type="number" formControlName="visitor_no" color="success"></ion-input>
+	</ion-item>	 	
+
+	<ion-item>
+		<ion-label>Food Request: </ion-label>
+	    <ion-select justify="start" placeholder="Select One" formControlName="food_request" [multiple]="true">
+	      <ion-select-option value="Breakfast">Breakfast</ion-select-option>
+	      <ion-select-option value="Lunch">Lunch</ion-select-option>
+	      <ion-select-option value="Dinner">Dinner</ion-select-option>
+	      <ion-select-option value="Snacks">Snacks</ion-select-option>
+	    </ion-select>
+	</ion-item>
+
+	<ion-item>
+		<ion-label>Food Hospitality By: </ion-label>
+	    <ion-select  interface="action-sheet" formControlName="food_hospitality_by" placeholder="Select One">
+	        <ion-select-option [value]="companydata.id" *ngFor="let companydata of companyList"> {{ companydata.projectName }} </ion-select-option>
+	    </ion-select>
+	</ion-item>		
+
+	<ion-item>
+		<ion-textarea label="OD Purpose" labelPlacement="floating" formControlName="approval_message" [counter]="true" maxlength="120"></ion-textarea>
+	</ion-item>		
+
+	<ion-item>
+		<ion-textarea label="Visitor Details" labelPlacement="floating" formControlName="visitor_details" [counter]="true" maxlength="120"></ion-textarea>
+	</ion-item>		
+
+	<ion-item>
+		<ion-textarea label="Comments" labelPlacement="floating" formControlName="comments" [counter]="true" maxlength="120"></ion-textarea>
+	</ion-item>	
+
+    <ion-button class="button-position" expand="full" shape="round" color="success" type="submit" [disabled]="odForm.invalid"> Send For Approval </ion-button>
+
+	</form>
+
+</ion-content>

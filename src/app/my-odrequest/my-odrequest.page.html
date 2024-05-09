@@ -1,0 +1,86 @@
+<ion-header [translucent]="true">
+<ion-toolbar color="light">
+  <ion-buttons slot="start" (click)="navigate()">
+    <ion-back-button default-href="#"></ion-back-button>
+  </ion-buttons>
+  <ion-title> MY OD Request </ion-title>
+       	<ion-button color="light" slot="end" (click)="refreshPage()">
+		  <ion-icon name="refresh"></ion-icon>
+		</ion-button>
+   <ion-progress-bar></ion-progress-bar>
+</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+
+	<form [formGroup]="odForm" (submit)="searchODRequest(odForm.value)">  
+
+<!-- 	<ion-item>
+      <ion-label>Start Date: </ion-label>
+      <ion-input  formControlName="start_date" placeholder="Ex:2023-07-01" color="success"></ion-input>
+      <ion-datetime value="2019-10-01T15:43:40.394Z" display-timezone="utc" name="start_date" formControlName="start_date"></ion-datetime>
+    </ion-item>    -->  
+
+<!-- 
+    <ion-item>
+      <ion-label>End Date: </ion-label>
+      <ion-input  formControlName="end_date" placeholder="Ex:2023-07-30" color="success"></ion-input>
+      <ion-datetime value="2019-10-01T15:43:40.394Z" display-timezone="utc" name="end_date" formControlName="end_date"></ion-datetime>
+    </ion-item> 
+ -->
+	  <ion-item>
+	  	<ion-label>Start Date: </ion-label>
+		<ion-datetime-button datetime="datetime"></ion-datetime-button>
+  	  </ion-item>	  
+
+  	  <ion-item>
+	  	<ion-label>End Date: </ion-label>
+		<ion-datetime-button datetime="datetime1"></ion-datetime-button>
+  	  </ion-item>
+
+		<ion-modal [keepContentsMounted]="true">
+		  <ng-template>
+		    <ion-datetime formControlName="start_date" id="datetime" presentation="date"  prefer-wheel="true"
+	     [showDefaultButtons]="true"></ion-datetime>
+		  </ng-template>
+		</ion-modal>			
+
+		<ion-modal [keepContentsMounted]="true">
+		  <ng-template>
+		    <ion-datetime formControlName="end_date" id="datetime1" presentation="date"  prefer-wheel="true"
+	     [showDefaultButtons]="true"></ion-datetime>
+		  </ng-template>
+		</ion-modal>	  
+
+    <ion-button expand="full" shape="round" color="success" style="margin-top: 10px; padding-left: 10px; padding-right: 10px;" type="submit"> Search Result </ion-button>
+
+	</form>
+
+
+	<ion-card *ngFor="let data of myOD">
+	  <ion-card-header>
+	    <ion-card-subtitle> <strong>  OD Date: </strong> {{ data.od_date }} </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Visit From:  </strong> {{ data.visit_from }}  </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Visit To: </strong> {{ data.visit_to[0] }} , {{ data.visit_to[1] }} , {{ data.visit_to[2] }}</ion-card-subtitle>
+	    <ion-card-subtitle *ngIf="data.other"> <strong>  Other: </strong> {{ data.other }}  </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  No of Visitor: </strong> {{ data.visitor_no }}   </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Back to Office: </strong> {{ data.back_to_office }}  </ion-card-subtitle>
+	    <ion-card-subtitle> <strong>  Food Request: </strong> {{ data.food_request }}  </ion-card-subtitle>
+
+	    <ion-card-subtitle *ngIf="data.head_approved_status == '0'"> <strong>  Dept. Head Approve Status: </strong> Pending </ion-card-subtitle>  
+
+	    <ion-card-subtitle *ngIf="data.head_approved_status == '1'"> <strong>  Dept. Head Approve Status: </strong> Approve </ion-card-subtitle>   
+
+	    <ion-card-subtitle *ngIf="data.head_approved_status == '2'"> <strong>  Dept. Head Approve Status: </strong> Rejected </ion-card-subtitle>
+
+	  </ion-card-header>
+
+	  <ion-card-content>
+	    <strong> OD Purpose: </strong> {{ data.approval_message }}
+	  </ion-card-content>
+	</ion-card>	
+
+
+
+</ion-content>
